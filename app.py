@@ -1,6 +1,6 @@
 from flask import Flask, render_template_string, request, redirect, url_for
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # Le dictionnaire pour stocker les produits
 PRODUITS = {}
