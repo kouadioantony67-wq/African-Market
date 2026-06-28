@@ -2,7 +2,7 @@ from flask import Flask, render_template_string, request, redirect, url_for
 
 app = Flask(_name_)
 
-# Le dictionnaire qui stocke temporairement les produits
+# Le dictionnaire pour stocker les produits
 PRODUITS = {}
 prochain_id = 1
 
@@ -54,23 +54,18 @@ def boutique():
 def ajouter_produit():
     global prochain_id
     if request.method == 'POST':
-        # On recupere les infos tapees par l'utilisateur
         nom = request.form.get('nom')
         prix = request.form.get('prix')
         description = request.form.get('description')
         
-        # On enregistre dans notre dictionnaire
         PRODUITS[prochain_id] = {
             'nom': nom,
             'prix': prix,
             'description': description
         }
         prochain_id += 1
-        
-        # Une fois ajoute, on redirige vers la page d'accueil
         return redirect(url_for('boutique'))
 
-    # Si c'est une requete normale (GET), on affiche le formulaire HTML
     form_page = """
     <!DOCTYPE html>
     <html>
@@ -91,22 +86,4 @@ def ajouter_produit():
             <h2>Mettre un article en vente</h2>
             <form method="POST">
                 <label>Nom du produit :</label>
-                <input type="text" name="nom" required placeholder="Ex: Chaussures, Sac...">
-
-                <label>Prix (FCFA) :</label>
-                <input type="number" name="prix" required placeholder="Ex: 15000">
-
-                <label>Description :</label>
-                <textarea name="description" rows="4" placeholder="Decrivez votre produit..."></textarea>
-
-                <button type="submit" class="btn-valider">Publier le produit</button>
-            </form>
-            <a href="/" class="btn-retour">Annuler et retourner a la boutique</a>
-        </div>
-    </body>
-    </html>
-    """
-    return render_template_string(form_box=form_page) # Petite correction ici pour l'affichage simple
-
-if _name_ == '_main_':
-    app.run(debug=True)
+                <…
