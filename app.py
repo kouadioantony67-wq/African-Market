@@ -2,6 +2,46 @@ from flask import Flask, render_template_string, request, redirect, url_for
 
 app = Flask(__name__)
 
+# Le dictionnaire qui stocke temporairement les produits
+PRODUITS = {}
+prochain_id = 1
+
+@app.route('/')
+def boutique():
+    html_page = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>African Market</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+            .header-bar { display: flex; justify-content: space-between; align-items: center; background-color: #333; color: white; padding: 10px 20px; }
+            .panier-btn { background-color: #ff9900; color: white; padding: 10px; text-decoration: none; font-weight: bold; }
+            .ajouter-btn { display: inline-block; background…
+[13:38, 28/06/2026] Emilienne: from flask import Flask, render_template_string, request, redirect, url_for
+
+app = Flask(__name__)
+
+# Le dictionnaire pour stocker les produits
+PRODUITS = {}
+prochain_id = 1
+
+@app.route('/')
+def boutique():
+    html_page = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>African Market</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+            .header-bar { display: flex; justify-content: space-between; align-items: center; background-color: #333; color: white; padding: 10px 20px; }
+            .panier-btn { background-color: #ff9900; color: white; padding: 10px; text-decoration: none; font-weight: bold; }
+            .ajouter-btn { display: inline-block; background-color: #28a7…
+[13:43, 28/06/2026] Emilienne: from flask import Flask, render_template_string, request, redirect, url_for
+
+app = Flask(__name__)
+
 # Le dictionnaire pour stocker les produits
 PRODUITS = {}
 prochain_id = 1
@@ -86,4 +126,22 @@ def ajouter_produit():
             <h2>Mettre un article en vente</h2>
             <form method="POST">
                 <label>Nom du produit :</label>
-                <…
+                <input type="text" name="nom" required placeholder="Ex: Chaussures, Sac...">
+
+                <label>Prix (FCFA) :</label>
+                <input type="number" name="prix" required placeholder="Ex: 15000">
+
+                <label>Description :</label>
+                <textarea name="description" rows="4" placeholder="Decrivez votre produit..."></textarea>
+
+                <button type="submit" class="btn-valider">Publier le produit</button>
+            </form>
+            <a href="/" class="btn-retour">Annuler et retourner a la boutique</a>
+        </div>
+    </body>
+    </html>
+    """
+    return render_template_string(form_page)
+
+if _name_ == '_main_':
+    app.run(debug=True)
