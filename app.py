@@ -1,63 +1,58 @@
-from flask import Flask,render_template_string
+from flask import Flask, render_template_string
 
-app=Flask(__name__)
+app = Flask(_name_)
 
-#ledictionnaire est vide au départ! cest l'utilisateure qui vas le remplir.
-PRODUITS={}
-#un compteur pour donner un identifiant unique (1,2,3...)à chaque produit
-prochain_id=1
+# Le dictionnaire est vide au depart! C'est l'utilisateur qui va le remplir.
+PRODUITS = {}
+# Un compteur pour donner un identifiant unique (1,2,3...) a chaque produit
+prochain_id = 1
 
-#1.page d'acceuil:liste les produis(ou affiche un message si vide)
 @app.route('/')
 def boutique():
-    html_page="""
-   <!DOCTYPE htlm>
-   <html>
-   <head>
-         <meta charset="UTF-8">
-         <title>Nom De Ma Boutique</title>
-         <style>
-             body {front-family:Arial,sans-serf;margin:'40px;background-color:#f9f9f;}
-             .header-bar {display: flex;justify-content:space-between;align-items:center;}
-             .panier-btn {background-color:#333; color:white;padding: 12px 20px;text-decoration: none border-raduis: 5px; font-weight:bold;}
-             .ajouter-btn {background-color:#28a745; color: withe; padding: 12px 20px; texte-decoration:none; border-radius:5px;display: inline-block;margin-top: 20px; font-weight: bold;}
-             .produit-card{ background:white; padding:15px;margin:10px 0; border-raduis:8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);list-style:none; }
-             .voir-lien{color:#007bff; text-decoration:none; font-weight:bold; margin-left:15px;}
-             
+    html_page = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>African Market</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+            .header-bar { display: flex; justify-content: space-between; align-items: center; background-color: #333; color: white; padding: 10px 20px; }
+            .panier-btn { background-color: #ff9900; color: white; padding: 10px; text-decoration: none; font-weight: bold; }
+            .ajouter-btn { display: inline-block; background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; margin: 20px 0; font-weight: bold; }
+            .produits-container { display: flex; flex-wrap: wrap; }
+            .produit-card { background: white; padding: 15px; margin: 10px; border: 1px solid #ddd; width: 200px; }
+            .voir-lien { color: #007bff; text-decoration: none; font-weight: bold; }
         </style>
     </head>
     <body>
 
         <div class="header-bar">
-             <h1>Ma Super Boutique</h1>
-             <a href="#" class="panier-btn" onclick="alert('le panier est vide pour le moment!')">Mon Panier</a>
+            <h1>African Market</h1>
+            <a href="#" class="panier-btn" onclick="alert('Le panier est vide')">Mon Panier</a>
         </div>
 
-        <a href="/ajouter" class="ajouter-btn"}+Mettre un produit en vente</a>
+        <a href="/ajouter" class="ajouter-btn">Mettre un produit en vente</a>
 
-        <hr style="marging-top: 20px; border: 0; border-top:1px solid #ccc;">
+        <hr style="margin-top: 20px; border: 0; border-top: 1px solid #ccc;">
 
-        {%if not produits%}
-            <p style="color:#666; font-style:italic; marging-top: 30px;">
-                la boutique est vide. cliquer sur le bouton vert pour ajouter votre premier produit!
+        {% if not produits %}
+            <p style="color: #666; font-style: italic; margin-top: 30px;">Aucun produit n'est en vente pour le moment.</p>
+        {% else %}
+            <div class="produits-container">
+            {% for id, prod in produits.items() %}
+                <div class="produit-card">
+                    <h3>{{ prod.nom }}</h3>
+                    <p><strong>Prix :</strong> {{ prod.prix }} FCFA</p>
+                    <a href="/produit/{{ id }}" class="voir-lien">Voir le produit</a>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
 
-            </p>
-        {% elese%}
-            <h3>produits disponibles :</h3>
-            ul style="padding: 0;">
-               {% for id, prod in produits.items()%}
-                   <li class="produit-card">
-                       <strong>{{prod.nom}}</strong - <span style="color: #28a745; font-weight:bold;">{{prod.prix}}fcfa</span>
-                       <a href="/produit/{{id}}" class="voir-lien">voirlafiche </a>
-                   </li>
-               {% endfor %}
-            </ul>
-         {%endif%}
-
-       </body>
-       </htlm>
-       """
+    </body>
+    </html>
+    """
     return render_template_string(html_page, produits=PRODUITS)
-#lancement du cerveur Flask
-if __name__== '__main__':
+
+if _name_ == '_main_':
     app.run(debug=True)
