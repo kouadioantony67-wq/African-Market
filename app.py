@@ -1,6 +1,6 @@
 from flask import Flask, render_template_string
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # Le dictionnaire est vide au depart! C'est l'utilisateur qui va le remplir.
 PRODUITS = {}
